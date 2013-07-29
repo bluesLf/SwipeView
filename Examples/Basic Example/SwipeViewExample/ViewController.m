@@ -29,7 +29,7 @@
     {
         //set up colors
         self.colors = [NSMutableArray array];
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 3; i++)
         {
             [self.colors addObject:[UIColor colorWithRed:rand()/(float)RAND_MAX
                                                    green:rand()/(float)RAND_MAX
@@ -48,12 +48,17 @@
     _swipeView.alignment = SwipeViewAlignmentCenter;
     _swipeView.pagingEnabled = YES;
     _swipeView.wrapEnabled = NO;
-    _swipeView.itemsPerPage = 3;
-    _swipeView.truncateFinalPage = YES;
-    
+//    _swipeView.itemsPerPage = 3;
+//    _swipeView.truncateFinalPage = YES;
+
     //configure page control
     _pageControl.numberOfPages = _swipeView.numberOfPages;
     _pageControl.defersCurrentPageDisplay = YES;
+
+    //
+    _swipeView.itemAlpha = 0.5f;
+    _swipeView.itemScale = 0.8f;
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -73,7 +78,7 @@
     //create or reuse view
     if (view == nil)
     {
-        label = [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 100.0f)] autorelease];
+        label = [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 200.0f, 200.0f)] autorelease];
         label.textAlignment = UITextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
         view = label;
@@ -96,6 +101,10 @@
 - (void)swipeView:(SwipeView *)swipeView didSelectItemAtIndex:(NSInteger)index
 {
     NSLog(@"Selected item at index %i", index);
+}
+
+- (CGSize)swipeViewItemSize:(SwipeView *)swipeView {
+    return CGSizeMake(200.0f, 200.0f);
 }
 
 - (IBAction)pageControlTapped

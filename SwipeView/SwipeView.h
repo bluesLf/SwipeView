@@ -79,6 +79,9 @@ SwipeViewAlignment;
 @property (nonatomic, readonly, getter = isScrolling) BOOL scrolling;
 @property (nonatomic, assign) BOOL defersItemViewLoading;
 @property (nonatomic, assign, getter = isVertical) BOOL vertical;
+@property (nonatomic, assign) CGFloat itemAlpha;// not current item alpha, using this property must implement `swipeViewItemSize:`
+@property (nonatomic, assign) CGFloat itemScale;// not current item scale, using this property must implement `swipeViewItemSize:`
+@property (nonatomic, weak_delegate) UIScrollView *weakScrollView;// need scroll view to do some operations
 
 - (void)reloadData;
 - (void)reloadItemAtIndex:(NSInteger)index;
@@ -103,7 +106,7 @@ SwipeViewAlignment;
 @protocol SwipeViewDelegate <NSObject>
 @optional
 
-- (CGSize)swipeViewItemSize:(SwipeView *)swipeView;
+- (CGSize)swipeViewItemSize:(SwipeView *)swipeView;// using property `itemAlpha` or `itemScale` must implement this method
 - (void)swipeViewDidScroll:(SwipeView *)swipeView;
 - (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView;
 - (void)swipeViewWillBeginDragging:(SwipeView *)swipeView;
